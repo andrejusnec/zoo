@@ -19,6 +19,16 @@ class AnimalController extends Controller
         $animals = Animal::all();
         return view('animal.index', ['animals' => $animals]);
     }
+    public function index2(Request $request) {
+        if('name' == $request->sort) {
+            $animals = Animal::orderBy('name') ->get();
+         } else if('birth_year' == $request->sort) {
+          $animals = Animal::orderBy('birth_year') ->get();
+        } else{
+            $animals = Animal::all();
+        }
+        return view('animal.index', ['animals' => $animals]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,7 +51,7 @@ class AnimalController extends Controller
     public function store(Request $request)
     {
         Animal::create($request);
-        return redirect() -> route('animal.index');
+        return redirect() -> route('animal.index')->with('success_message', 'New animal has been successfully added.');
     }
 
     /**
@@ -77,8 +87,9 @@ class AnimalController extends Controller
      */
     public function update(Request $request, Animal $animal)
     {
-        Animal::upd($animal, $request);
-        return redirect() -> route('animal.index');
+        //Animal::upd($animal, $request);
+        $animal->upd($request);
+        return redirect() -> route('animal.index')->with('success_message', 'Animal information has been successfully updated.');
     }
 
     /**
@@ -90,6 +101,6 @@ class AnimalController extends Controller
     public function destroy(Animal $animal)
     {
         $animal->delete();
-        return redirect() ->route('animal.index');
+        return redirect() ->route('animal.index')->with('success_message', 'Animal has been successfully deleted.');
     }
 }

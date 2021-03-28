@@ -40,6 +40,7 @@ Route::group(['prefix' => 'species'], function(){
 
 Route::group(['prefix' => 'managers'], function(){
    Route::get('', [ManagerController::class, 'index'])->name('manager.index');
+   Route::post('', [ManagerController::class, 'index2'])->name('manager.index2');
    Route::get('create', [ManagerController::class, 'create'])->name('manager.create');
    Route::post('store', [ManagerController::class, 'store'])->name('manager.store');
    Route::get('edit/{manager}', [ManagerController::class, 'edit'])->name('manager.edit');
@@ -50,6 +51,7 @@ Route::group(['prefix' => 'managers'], function(){
 
 Route::group(['prefix' => 'animals'], function(){
    Route::get('', [AnimalController::class, 'index'])->name('animal.index');
+   Route::post('', [AnimalController::class, 'index2'])->name('animal.index2');
    Route::get('create', [AnimalController::class, 'create'])->name('animal.create');
    Route::post('store', [AnimalController::class, 'store'])->name('animal.store');
    Route::get('edit/{animal}', [AnimalController::class, 'edit'])->name('animal.edit');

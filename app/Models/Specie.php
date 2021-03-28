@@ -14,4 +14,7 @@ class Specie extends Model
         $specie->name = $request->specie_name;
         $specie->save();
     }
+    public function specieHasManagers() {
+        return $this->hasMany('App\Models\Manager', 'specie_id', 'id');
+    }
 }

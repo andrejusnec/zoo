@@ -9,15 +9,19 @@
 
                <div class="card-body">
                  <form action="{{route('manager.update', $manager)}}" method="post">
+                    <div class="form-group">
                     <label for="Name">Name</label>
-                    <input value="{{$manager->name}}"type="text" name="manager_name">
+                    <input class="form-control" value="{{old('manager_name',$manager->name)}}" type="text" name="manager_name">
+                    <small class="form-text text-muted">Managers name.</small>
                     <label for="Name">Surname</label>
-                    <input value="{{$manager->surname}}"type="text" name="manager_surname">
+                    <input class="form-control" value="{{old('manager_surname',$manager->surname)}}"type="text" name="manager_surname">
+                    <small class="form-text text-muted">Managers Surname.</small>
                     <select name="specie_id">
                         @foreach ($species as $specie)
-                            <option value="{{$specie->id}}">{{$specie->name}}</option>
+                            <option value="{{$specie->id}}" @if($specie->id == $manager->specie_id) selected @endif>{{$specie->name}}</option>
                         @endforeach
                  </select>
+                 </div>
                     <button class="btn btn-primary" type="submit">Save changes</button>
                     @csrf
                 </form>

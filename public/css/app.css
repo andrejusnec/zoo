@@ -10946,4 +10946,22 @@ a.text-dark:focus {
   display: inline-block;
 }
 
+.btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  justify-self: right;
+}
+
+.list-group-item {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+}
+
+.list-group-item .list-align-right {
+  -moz-text-align-last: right;
+       text-align-last: right;
+  align-self: center;
+}
+
 

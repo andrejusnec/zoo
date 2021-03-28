@@ -8,18 +8,28 @@
                <div class="card-header">Manager List</div>
 
                <div class="card-body">
-                   <a href="{{route('manager.create')}}">New Manager</a>
-                <ul>
-                 @foreach ($managers as $manager)
-                    <li style="padding: 5px 0"><span class="padding-span">{{$manager->name}} {{$manager->surname}}</span>
-                         <a type="button" class="btn btn-primary" href="{{route('manager.edit', $manager)}}">Edit</a>
-                        <form class="btn-inline" action="{{route('manager.destroy', $manager)}}" method="post">
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                            @csrf
-                        </form>
-                    </li>
-                 @endforeach
-                </ul>
+                <ul class="list-group">
+                    @foreach ($managers as $manager)
+                        <li class="list-group-item">
+                       <span style="align-self: center;">{{$manager->name}} {{$manager->surname}}</span>
+                       <div class="list-align-right">
+                            <a type="button" class="btn btn-primary" href="{{route('manager.edit', $manager)}}">Edit</a>
+                           <form class="btn-inline" action="{{route('manager.destroy', $manager)}}" method="post">
+                               <button class="btn btn-danger" type="submit">Delete</button>
+                               @csrf
+                           </form>
+                       </div>
+                       </li>
+                    @endforeach
+                   </ul>
+                   <form action="{{route('manager.index2')}}" method="post">
+                <select name="sort">
+                        <option value="name">Sort by Name</option>
+                        <option value="surname">Sort by Surname</option>
+             </select>
+             <button class="btn btn-primary" type="submit">Sort</button>
+             @csrf
+            </form>
                </div>
            </div>
        </div>

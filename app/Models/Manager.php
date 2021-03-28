@@ -22,5 +22,8 @@ class Manager extends Model
         $manager->specie_id = $request->specie_id;
         $manager->save();
     }
+    public function managerHasAnimals() {
+        return $this->hasMany('App\Models\Animal', 'manager_id', 'id');
+    }
 
 }

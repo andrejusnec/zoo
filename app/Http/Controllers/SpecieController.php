@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Specie;
 use Illuminate\Http\Request;
+use Validator;
 
 class SpecieController extends Controller
 {
@@ -36,8 +37,20 @@ class SpecieController extends Controller
      */
     public function store(Request $request)
     {
-        Specie::create($request);
-        return redirect()->route('specie.index');
+       $validator = Validator::make($request->all(),
+       [
+           'specie_name' => ['required','regex:/^[A-Z][a-z_-]{2,19}$/', 'min:3', 'max:64'],
+       ],
+[
+'specie_name.min' => 'Type do not meet minimum length requirement',
+'specie_name.regex' => 'Type cannot contain illegal characters. Only letters.'
+]);
+       if ($validator->fails()) {
+           $request->flash();
+           return redirect()->back()->withErrors($validator);
+       }
+       Specie::create($request);
+        return redirect()->route('specie.index')->with('success_message', 'New specie has been added successfully.');
     }
 
     /**
@@ -71,9 +84,22 @@ class SpecieController extends Controller
      */
     public function update(Request $request, Specie $specie)
     {
+        $validator = Validator::make($request->all(),
+       [
+           'specie_name' => ['required','regex:/^[A-Z][a-z_-]{2,19}$/', 'min:3', 'max:64'],
+       ],
+[
+'specie_name.min' => 'Type do not meet minimum length requirement',
+'specie_name.regex' => 'Type cannot contain illegal characters. Only letters.'
+]);
+       if ($validator->fails()) {
+           $request->flash();
+           return redirect()->back()->withErrors($validator);
+       }
         $specie->name = $request->specie_name;
         $specie->save();
-        return redirect()->route('specie.index');
+        return redirect()->route('specie.index')->with('success_message', 'Information has been successfully updated.');
+        
     }
 
     /**
@@ -84,7 +110,11 @@ class SpecieController extends Controller
      */
     public function destroy(Specie $specie)
     {
+        if($specie->specieHasManagers()->count()) {
+            return redirect()->route('specie.index')->with('info_message', 'You cannot delete specie, because u have manager
+            working with it.');
+        }
         $specie->delete();
-        return redirect()->route('specie.index');
+        return redirect()->route('specie.index')->with('success_message', 'Specie has been successfully deleted.');
     }
 }

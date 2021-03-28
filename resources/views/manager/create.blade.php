@@ -9,15 +9,19 @@
 
                <div class="card-body">
                  <form action="{{route('manager.store')}}" method="post">
+                    <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="text" name="manager_name">
+                    <input type="text" class="form-control" name="manager_name" value="{{old('manager_name')}}">
+                    <small class="form-text text-muted">Enter managers Name.</small>
                     <label for="Surname">Surname</label>
-                    <input type="text" name="manager_surname">
+                    <input type="text" class="form-control" name="manager_surname" value="{{old('manager_surname')}}">
+                    <small class="form-text text-muted">Enter managers Surname.</small>
                     <select name="specie_id">
                         @foreach ($species as $specie)
                             <option value="{{$specie->id}}">{{$specie->name}}</option>
                         @endforeach
                  </select>
+                </div>
                     <button class="btn btn-primary" type="submit">Add</button>
                     @csrf
                 </form>

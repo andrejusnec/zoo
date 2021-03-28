@@ -2,5 +2,17 @@
     display: inline-block;
 }
 .padding-span {
-    
+
+}
+.btn {
+    width: fit-content;
+    justify-self: right;
+}
+.list-group-item {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    .list-align-right {
+        text-align-last: right;
+        align-self: center;
+    }
 }

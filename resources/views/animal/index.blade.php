@@ -8,19 +8,28 @@
                <div class="card-header">Animal LIST</div>
 
                <div class="card-body">
-                   <a href="{{route('animal.create')}}">New Manager</a>
-                <ul>
-                    <?php _d($animals) ?>
+                <ul class="list-group">
                  @foreach ($animals as $animal)
-                    <li style="padding: 5px 0"><span class="padding-span">{{$animal->name}} {{$animal->birth_year}}</span>
-                         <a type="button" class="btn btn-primary" href="{{route('animal.edit', $animal)}}">Edit</a>
+                    <li class="list-group-item">
+                       <div style="display: grid"><span style="align-self: center;">{{$animal->name}}</span> <span>Year of birth: {{$animal->birth_year}}</span></div>
+                        <div class="list-align-right"> 
+                        <a type="button" class="btn btn-primary" href="{{route('animal.edit', $animal)}}">Edit</a>
                         <form class="btn-inline" action="{{route('animal.destroy', $animal)}}" method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
                             @csrf
                         </form>
+                        </div>
                     </li>
                  @endforeach
                 </ul>
+                <form action="{{route('animal.index2')}}" method="post">
+                    <select name="sort">
+                            <option value="name">Sort by Name</option>
+                            <option value="birth_year">Sort by Birth</option>
+                 </select>
+                 <button class="btn btn-primary" type="submit">Sort</button>
+                 @csrf
+                </form>
                </div>
            </div>
        </div>

@@ -18,12 +18,12 @@ class Animal extends Model
         $animal->manager_id = $request->manager_id;
         $animal->save();
     }
-    public static function upd($animal, $request) {
-        $animal->name = $request->animal_name;
-        $animal->birth_year = $request->birth_year;
-        $animal->animal_book = $request->animal_book;
-        $animal->specie_id = $request-> specie_id;
-        $animal->manager_id = $request->manager_id;
-        $animal->save();
+    public function upd($request) {
+        $this->name = $request->animal_name;
+        $this->birth_year = $request->birth_year;
+        $this->animal_book = $request->animal_book;
+        $this->specie_id = $request-> specie_id;
+        $this->manager_id = $request->manager_id;
+        $this->save();
     }
 }
