@@ -21,18 +21,28 @@
                         </div>
                     </li>
                  @endforeach
-                </ul>
-                <form action="{{route('animal.index2')}}" method="post">
-                    <select name="sort">
+                 <form class="list-group-item" action="{{route('animal.index2')}}" method="post">
+                    <div style=width:200px>
+                    <select style="width: 200px" id="select" name="sort">
                             <option value="name">Sort by Name</option>
                             <option value="birth_year">Sort by Birth</option>
                  </select>
-                 <button class="btn btn-primary" type="submit">Sort</button>
+                 <button style="margin-top:10px" class="btn btn-primary" type="submit">Sort</button>
+                </div>
                  @csrf
                 </form>
+                </ul>
+                
                </div>
            </div>
        </div>
    </div>
 </div>
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+    $('#select').select2({
+            width: 'resolve'
+        });
+    });
+</script>
 @endsection

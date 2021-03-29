@@ -18,18 +18,28 @@
                             <small class="form-text text-muted">Enter animal birth date in YYYY format</small>
                             <label for="AnimalBook">Description</label>
                             <textarea class="form-control" id="summernote" type="text" name="animal_book" ></textarea>
-                            <span>Species</span>
-                            <select name="specie_id">
-                                @foreach ($species as $specie)
-                                <option value="{{$specie->id}}">{{$specie->name}}</option>
-                                @endforeach
-                            </select>
-                            <span>Managers</span>
-                            <select name="manager_id">
-                                @foreach ($managers as $manager)
-                                <option value="{{$manager->id}}">{{$manager->name}} {{$manager->surname}}</option>
-                                @endforeach
-                            </select>
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <span>Species</span>
+                                    <div style="justify-self: self-end;">
+                                        <select style="width: 150px" class="select2" name="specie_id">
+                                            @foreach ($species as $specie)
+                                            <option value="{{$specie->id}}">{{$specie->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <span>Managers</span>
+                                    <div style="justify-self: self-end;">
+                                        <select style="width: 150px" class="select2" name="manager_id">
+                                            @foreach ($managers as $manager)
+                                            <option value="{{$manager->id}}">{{$manager->name}} {{$manager->surname}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <button class="btn btn-primary" type="submit">Add</button>
                         @csrf
@@ -42,6 +52,9 @@
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         $('#summernote').summernote();
+        $('.select2').select2({
+            width: 'resolve'
+        });
     });
-    </script>
+</script>
 @endsection
