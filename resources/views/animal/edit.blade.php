@@ -8,8 +8,8 @@
                 <div class="card-header">Make changes</div>
 
                 <div class="card-body">
-                    <div class="form-group">
                         <form action="{{route('animal.update' , $animal)}}" method="post">
+                            <div class="form-group">
                             <label for="Name">Name</label>
                             <input class="form-control" value="{{$animal->name}}" type="text" name="animal_name">
                             <small class="form-text text-muted">Animals name.</small>
@@ -18,7 +18,7 @@
                             <small class="form-text text-muted">Animal birth date</small>
                             <label for="AnimalBook">Description</label>
                             <textarea class="form-control" id="summernote" type="text" name="animal_book"
-                                value="{{$animal->animal_book}}"></textarea>
+                                >{{$animal->animal_book}}</textarea>
                             <div class="list-group">
                                 <div class="list-group-item">
                                     <span>Species</span>

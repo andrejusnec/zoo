@@ -9,6 +9,14 @@ class Animal extends Model
 {
     use HasFactory;
 
+    public function animalManager()
+    {
+        return $this->belongsTo(Manager::class, 'manager_id', 'id');
+    }
+    public function animalSpecie()
+    {
+        return $this->belongsTo(Specie::class, 'specie_id', 'id');
+    }
     public static function create($request) {
         $animal = new self;
         $animal->name = $request->animal_name;

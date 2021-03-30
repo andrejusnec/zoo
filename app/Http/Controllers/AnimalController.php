@@ -14,20 +14,26 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $animals = Animal::all();
-        return view('animal.index', ['animals' => $animals]);
-    }
-    public function index2(Request $request) {
-        if('name' == $request->sort) {
-            $animals = Animal::orderBy('name') ->get();
-         } else if('birth_year' == $request->sort) {
-          $animals = Animal::orderBy('birth_year') ->get();
-        } else{
+        $managers = Manager::all();
+        //Filter
+        if($request -> manager_id){
+            $animals = Animal::where('manager_id', $request->manager_id)->get();
+            $filterBy = $request->manager_id;
+        } else {
             $animals = Animal::all();
         }
-        return view('animal.index', ['animals' => $animals]);
+        //Sort
+        if($request->sort && 'byName' == $request->sort ) {
+            $animals = $animals->sortBy('name');
+            $sortBy = 'name';
+         } else if($request->sort && 'byYear' == $request->sort) {
+          $animals = $animals->sortBy('birth_year');
+          $sortBy = 'birth_year';
+        } 
+        
+        return view('animal.index', ['animals' => $animals, 'managers' => $managers, 'filterBy' => $filterBy ?? 0, 'sortBy' => $sortBy ?? '' ]);
     }
 
     /**
@@ -62,7 +68,7 @@ class AnimalController extends Controller
      */
     public function show(Animal $animal)
     {
-        //
+        return view('animal.show', ['animal' => $animal]);
     }
 
     /**

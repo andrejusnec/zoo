@@ -51,7 +51,6 @@ Route::group(['prefix' => 'managers'], function(){
 
 Route::group(['prefix' => 'animals'], function(){
    Route::get('', [AnimalController::class, 'index'])->name('animal.index');
-   Route::post('', [AnimalController::class, 'index2'])->name('animal.index2');
    Route::get('create', [AnimalController::class, 'create'])->name('animal.create');
    Route::post('store', [AnimalController::class, 'store'])->name('animal.store');
    Route::get('edit/{animal}', [AnimalController::class, 'edit'])->name('animal.edit');
