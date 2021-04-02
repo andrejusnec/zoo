@@ -9,6 +9,11 @@ class Manager extends Model
 {
     use HasFactory;
 
+    public function managerSpecie()
+    {
+        return $this->belongsTo(Specie::class, 'specie_id', 'id');
+    }
+
     public static function create($request) {
         $manager = new self;
         $manager->name = $request->manager_name;
@@ -25,5 +30,4 @@ class Manager extends Model
     public function managerHasAnimals() {
         return $this->hasMany('App\Models\Animal', 'manager_id', 'id');
     }
-
 }

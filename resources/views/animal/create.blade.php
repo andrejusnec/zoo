@@ -34,7 +34,7 @@
                                     <div style="justify-self: self-end;">
                                         <select style="width: 150px" class="select2" name="manager_id">
                                             @foreach ($managers as $manager)
-                                            <option value="{{$manager->id}}">{{$manager->name}} {{$manager->surname}}</option>
+                                            <option value="{{$manager->specie_id}}|{{$manager->id}}">{{$manager->name}} {{$manager->surname}}</option>
                                             @endforeach
                                         </select>
                                     </div>

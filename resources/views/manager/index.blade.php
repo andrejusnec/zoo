@@ -12,6 +12,7 @@
                     @foreach ($managers as $manager)
                         <li class="list-group-item">
                        <span style="align-self: center;">{{$manager->name}} {{$manager->surname}}</span>
+                       <small>{{$manager->managerSpecie->name}}</small>
                        <div class="list-align-right">
                             <a type="button" class="btn btn-primary" href="{{route('manager.edit', $manager)}}">Edit</a>
                            <form class="btn-inline" action="{{route('manager.destroy', $manager)}}" method="post">

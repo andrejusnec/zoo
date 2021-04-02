@@ -56,6 +56,9 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Animal::checkLink($request)) {
+            return redirect()->back()->with('success_message', 'Failed.');
+        }
         Animal::create($request);
         return redirect() -> route('animal.index')->with('success_message', 'New animal has been successfully added.');
     }
