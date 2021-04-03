@@ -6,6 +6,7 @@ use App\Models\Animal;
 use Illuminate\Http\Request;
 use App\Models\Manager;
 use App\Models\Specie;
+use Validator;
 
 class AnimalController extends Controller
 {
@@ -55,9 +56,22 @@ class AnimalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        if(!Animal::checkLink($request)) {
-            return redirect()->back()->with('success_message', 'Failed.');
+    { 
+        $validator = Validator::make($request->all(),
+        [
+            'animal_name' => ['required','regex:/^[A-Z][a-z_-]{2,63}$/', 'min:3', 'max:64'],
+            'birth_year' => ['required','regex:/^[1-9]+/','not_in:0', 'max:4'],
+            'animal_book' => ['required','string','between:3,200'],
+        ],
+ [
+ ]);
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+        $manager = Manager::find($request->manager_id);
+        if($manager->specie_id != $request->specie_id) {
+            return redirect()->back()->with('info_message', 'Manager you selected is not responsible for this specie.');
         }
         Animal::create($request);
         return redirect() -> route('animal.index')->with('success_message', 'New animal has been successfully added.');
@@ -96,7 +110,22 @@ class AnimalController extends Controller
      */
     public function update(Request $request, Animal $animal)
     {
-        //Animal::upd($animal, $request);
+        $validator = Validator::make($request->all(),
+        [
+            'animal_name' => ['required','regex:/^[A-Z][a-z_-]{2,63}$/', 'min:3', 'max:64'],
+            'birth_year' => ['required','regex:/^[1-9]+/','not_in:0', 'max:4'],
+            'animal_book' => ['required','string','between:3,200'],
+        ],
+ [
+ ]);
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+        $manager = Manager::find($request->manager_id);
+        if($manager->specie_id != $request->specie_id) {
+            return redirect()->back()->with('info_message', 'Manager you selected is not responsible for this specie.');
+        }
         $animal->upd($request);
         return redirect() -> route('animal.index')->with('success_message', 'Animal information has been successfully updated.');
     }

@@ -25,7 +25,7 @@ class Animal extends Model
         $animal->birth_year = $request->birth_year;
         $animal->animal_book = $request->animal_book;
         $animal->specie_id = $request-> specie_id;
-        $animal->manager_id = $rez[1];
+        $animal->manager_id = $request->manager_id;
         $animal->save();
     }
     public function upd($request) {
@@ -35,14 +35,5 @@ class Animal extends Model
         $this->specie_id = $request-> specie_id;
         $this->manager_id = $request->manager_id;
         $this->save();
-    }
-    public static function checkLink($request) {
-        $flag = true;
-        $rez = explode("|", $request->manager_id);
-
-        if($request->specie_id != $rez[0]) {
-            $flag = false;
-        }
-        return $flag;
     }
 }
